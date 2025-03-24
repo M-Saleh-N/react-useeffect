@@ -3,6 +3,8 @@ import { useEffect , useState} from "react"
 const Poki = () => {
     const[offset, setOffset] = useState(0)
     const [data, setData] = useState([0])
+    const [profileUrl, setProfileUrl] = useState("")
+
     // const [prevBtnActive, setPrevBtnActive] = useState(null)
 
     const fetchPokemon = async (os) => {
@@ -30,6 +32,10 @@ const Poki = () => {
         setOffset(prev => prev += 20)
     }
 
+    const handleProfileUrl = (url) => {
+        setProfileUrl(url)  
+    }
+
     useEffect (() => {
         fetchPokemon(offset)
     }, [offset] )
@@ -48,6 +54,14 @@ const Poki = () => {
             <button onClick={handleNext}>Next</button>
         </div>
     );
+}
+
+const PokemonCharacterProfile = () => {
+    return (
+        <dive>
+            <h4> Pokemon Profile </h4>
+        </dive>
+    )
 }
 
 
