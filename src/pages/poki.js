@@ -49,7 +49,8 @@ function App() {
         <button onClick={handleNext}>Next</button>
       </div>
       <div>
-        <PokemonCharacterProfile />" profileUrl={profileUrl}"
+        <PokemonCharacterProfile />
+         profileUrl={profileUrl}
       </div>
     </div>
   );
