@@ -1,69 +1,66 @@
-import { useEffect , useState} from "react"
+import { useEffect, useState } from "react";
+function App() {
+  const [offset, setOffset] = useState(0);
+  const [data, setData] = useState([]);
+  const [profileUrl, setProfileUrl] = useState("");
 
-const Poki = () => {
-    const[offset, setOffset] = useState(0)
-    const [data, setData] = useState([0])
-    const [profileUrl, setProfileUrl] = useState("")
+  const fetchPokemon = async (os) => {
+    let url = `https://pokeapi.co/api/v2/pokemon/?offset=${os}&limit=20`;
 
-    // const [prevBtnActive, setPrevBtnActive] = useState(null)
-
-    const fetchPokemon = async (os) => {
-        let url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${os}`
-
-        try{
-        const pokeApi = await fetch(url)
-        const data = await pokeApiResponse.json()
-
-        setData(data.results)
-
-        }catch (error) {
-            console.error("error fetching ", error)
-        }
-
-        // fetch(url)
-        // .then(res => res.json())
-        // .then(data => setData(data.results))
-        // .catch(error => console.log("error fetching", error))
+    try {
+      const pokeApiResponse = await fetch(url);
+      const data = await pokeApiResponse.json();
+      setData(data.results);
+    } catch (error) {
+      console.error("error fetching ", error);
     }
-    const handleNext = () =>{
-        setOffset(prev => prev += 20)
-    }
-    const handlePrevious = () =>{
-        setOffset(prev => prev += 20)
-    }
+  };
 
-    const handleProfileUrl = (url) => {
-        setProfileUrl(url)  
-    }
+  const handleNext = () => {
+    setOffset((prev) => (prev += 20));
+  };
 
-    useEffect (() => {
-        fetchPokemon(offset)
-    }, [offset] )
-    return(
-        <div>
-             <h2>Pokemon Characters</h2>
-            <ul>
-                {data.map((pokemon, index) => (
-                <li
-                        key={index}>{pokemon.name}  {/* this will display the names */}
-                        {/*URL = {pokemon.url} {/* this will display the URL */}                 
-                </li>
-                ))}
-            </ul>
-            <button onClick={handlePrevious}>Previous</button>
-            <button onClick={handleNext}>Next</button>
-        </div>
-    );
+  const handlePrev = () => {
+    setOffset((prev) => (prev -= 20));
+  };
+
+  const handleProfileUrl = (url) => {
+    setProfileUrl(url);
+  };
+
+  useEffect(() => {
+    fetchPokemon(offset);
+  }, [offset]);
+
+  return (
+    <div>
+      <div>
+        <ul>
+          {data.map((val, key) => {
+            const { name, url } = val;
+            return (
+              <button onClick={() => handleProfileUrl(url)} key={key}>
+                {name}
+              </button>
+            );
+          })}
+        </ul>
+        <button onClick={handlePrev}>Previous</button>
+        <button onClick={handleNext}>Next</button>
+      </div>
+      <div>
+        <PokemonCharacterProfile />" profileUrl={profileUrl}"
+      </div>
+    </div>
+  );
 }
 
 const PokemonCharacterProfile = () => {
-    return (
-        <dive>
-            <h4> Pokemon Profile </h4>
-        </dive>
-    )
-}
+  return (
+    <div>
+      <h4>Pokemon Profile</h4>
+    </div>
+  );
+};
 
-
-
-export default Poki;
+export default App;
