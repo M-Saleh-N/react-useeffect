@@ -58,12 +58,14 @@ function App() {
   );
 }
 
-const PokemonCharacterProfile = () => {
-  return (
-    <div>
-      <h4>Pokemon Profile</h4>
-    </div>
-  );
-};
+const PokemonCharacterProfile = ({ profileUrl}) => {
+
+    const fetchPokemonProfile = async () => {
+        const response = await fetch(profileUrl)
+        const data = await response.json()
+        console.log(data)
+    }
+}
+
 
 export default App;
